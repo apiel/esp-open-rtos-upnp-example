@@ -12,7 +12,6 @@ void httpd_task(void *pvParameters)
     }
     netconn_bind(nc, IP_ADDR_ANY, 80);
     netconn_listen(nc);
-    char buf[1500];
     while (1) {
         err_t err = netconn_accept(nc, &client);
         if (err == ERR_OK) {
@@ -20,12 +19,12 @@ void httpd_task(void *pvParameters)
             if ((err = netconn_recv(client, &nb)) == ERR_OK) {
                 struct sdk_station_config config;
                 sdk_wifi_station_get_config(&config);
-                snprintf(buf, sizeof(buf),
+                char * buf =
                         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\
                          <root>\
                             <device>\
                                 <deviceType>urn:Belkin:device:controllee:1</deviceType>\
-                                <friendlyName>boxabc</friendlyName>\
+                                <friendlyName>hello</friendlyName>\
                                 <manufacturer>Belkin International Inc.</manufacturer>\
                                 <modelName>Emulated Socket</modelName>\
                                 <modelNumber>3.1415</modelNumber>\
@@ -42,7 +41,7 @@ void httpd_task(void *pvParameters)
                                     </service>\
                                 </serviceList>\
                             </device>\
-                         </root>"/*, ip*/);
+                         </root>";
                 netconn_write(client, buf, strlen(buf), NETCONN_COPY);
             }
             netbuf_delete(nb);

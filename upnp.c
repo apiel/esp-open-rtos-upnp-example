@@ -7,6 +7,16 @@
 #define UPNP_MCAST_GRP  ("239.255.255.250")
 #define UPNP_MCAST_PORT (1900)
 
+static const char* get_my_ip(void)
+{
+    static char ip[16] = "0.0.0.0";
+    ip[0] = 0;
+    struct ip_info ipinfo;
+    (void) sdk_wifi_get_ip_info(STATION_IF, &ipinfo);
+    snprintf(ip, sizeof(ip), IPSTR, IP2STR(&ipinfo.ip));
+    return (char*) ip;
+}
+
 /**
   * @brief This function joins a multicast group witht he specified ip/port
   * @param group_ip the specified multicast group ip
@@ -61,18 +71,19 @@ static struct udp_pcb* mcast_join_group(char *group_ip, uint16_t group_port, voi
 static void send(struct udp_pcb *upcb, struct ip_addr *addr, u16_t port)
 {
     struct pbuf *p;
-    char * msg = 
+    char msg[500];
+    snprintf(msg, sizeof(msg),
         "HTTP/1.1 200 OK\r\n"
         "CACHE-CONTROL: max-age=86400\r\n"
         "DATE: Fri, 15 Apr 2016 04:56:29 GMT\r\n"
         "EXT:\r\n"
-        "LOCATION: http://192.168.0.23:80/setup.xml\r\n"
+        "LOCATION: http://%s:80/setup.xml\r\n"
         "OPT: \"http://schemas.upnp.org/upnp/1/0/\"; ns=01\r\n"
         "01-NLS: b9200ebb-736d-4b93-bf03-835149d13983\r\n"
         "SERVER: Unspecified, UPnP/1.0, Unspecified\r\n"
         "ST: urn:Belkin:device:**\r\n"
         "USN: uuid:Socket-1_0-38323636-4558-4dda-9188-cda0e6cc3dc0::urn:Belkin:device:**\r\n"
-        "X-User-Agent: redsonic\r\n\r\n";
+        "X-User-Agent: redsonic\r\n\r\n", get_my_ip());
 
     p = pbuf_alloc(PBUF_TRANSPORT, strlen(msg)+1, PBUF_RAM);
 
@@ -116,7 +127,7 @@ static void receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, st
   * @brief Initialize the upnp server
   * @retval true if init was succcessful
   */
-bool uhej_server_init(void)
+bool upnp_server_init(void)
 {
     struct udp_pcb *upcb = mcast_join_group(UPNP_MCAST_GRP, UPNP_MCAST_PORT, receive_callback);
     return (upcb != NULL);
