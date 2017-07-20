@@ -62,17 +62,17 @@ static void send(struct udp_pcb *upcb, struct ip_addr *addr, u16_t port)
 {
     struct pbuf *p;
     char * msg = 
-"HTTP/1.1 200 OK\r\n\
-CACHE-CONTROL: max-age=86400\r\n\
-DATE: Fri, 15 Apr 2016 04:56:29 GMT\r\n\
-EXT:\r\n\
-LOCATION: http://192.168.0.13:80/abc/setup.xml\r\n\
-OPT: \"http://schemas.upnp.org/upnp/1/0/\"; ns=01\r\n\
-01-NLS: b9200ebb-736d-4b93-bf03-835149d13983\r\n\
-SERVER: Unspecified, UPnP/1.0, Unspecified\r\n\
-ST: urn:Belkin:device:**\r\n\
-USN: uuid:Socket-1_0-38323636-4558-4dda-9188-cda0e6cc3dc0::urn:Belkin:device:**\r\n\
-X-User-Agent: redsonic\r\n\r\n";
+        "HTTP/1.1 200 OK\r\n"
+        "CACHE-CONTROL: max-age=86400\r\n"
+        "DATE: Fri, 15 Apr 2016 04:56:29 GMT\r\n"
+        "EXT:\r\n"
+        "LOCATION: http://192.168.0.23:80/setup.xml\r\n"
+        "OPT: \"http://schemas.upnp.org/upnp/1/0/\"; ns=01\r\n"
+        "01-NLS: b9200ebb-736d-4b93-bf03-835149d13983\r\n"
+        "SERVER: Unspecified, UPnP/1.0, Unspecified\r\n"
+        "ST: urn:Belkin:device:**\r\n"
+        "USN: uuid:Socket-1_0-38323636-4558-4dda-9188-cda0e6cc3dc0::urn:Belkin:device:**\r\n"
+        "X-User-Agent: redsonic\r\n\r\n";
 
     p = pbuf_alloc(PBUF_TRANSPORT, strlen(msg)+1, PBUF_RAM);
 

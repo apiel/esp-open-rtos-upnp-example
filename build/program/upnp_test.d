@@ -1,5 +1,5 @@
 build/program//upnp_test.o: \
- /home/alex/dev1/esp8266/other/uhej-example/upnp_test.c \
+ /home/alex/dev1/esp8266/other/upnp/upnp_test.c \
  ../../esp-open-rtos/core/include/esp8266.h \
  ../../esp-open-rtos/libc/xtensa-lx106-elf/include/stdint.h \
  ../../esp-open-rtos/libc/xtensa-lx106-elf/include/machine/_default_types.h \
@@ -120,5 +120,6 @@ build/program//upnp_test.o: \
  ../../esp-open-rtos/include/ssid_config.h \
  ../../esp-open-rtos/include/private_ssid_config.h \
  ../../esp-open-rtos/include/espressif/esp_wifi.h \
- /home/alex/dev1/esp8266/other/uhej-example/lwipopts.h \
- /home/alex/dev1/esp8266/other/uhej-example/upnp.h
+ /home/alex/dev1/esp8266/other/upnp/lwipopts.h \
+ /home/alex/dev1/esp8266/other/upnp/upnp.h \
+ /home/alex/dev1/esp8266/other/upnp/httpd.h

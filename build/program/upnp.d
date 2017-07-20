@@ -1,4 +1,4 @@
-build/program//upnp.o: /home/alex/dev1/esp8266/other/uhej-example/upnp.c \
+build/program//upnp.o: /home/alex/dev1/esp8266/other/upnp/upnp.c \
  ../../esp-open-rtos/libc/xtensa-lx106-elf/include/string.h \
  ../../esp-open-rtos/libc/xtensa-lx106-elf/include/_ansi.h \
  ../../esp-open-rtos/libc/xtensa-lx106-elf/include/newlib.h \
@@ -57,4 +57,4 @@ build/program//upnp.o: /home/alex/dev1/esp8266/other/uhej-example/upnp.c \
  ../../esp-open-rtos/include/espressif/esp8266/uart_register.h \
  ../../esp-open-rtos/include/espressif/spi_flash.h \
  ../../esp-open-rtos/core/include/flashchip.h \
- /home/alex/dev1/esp8266/other/uhej-example/upnp.h
+ /home/alex/dev1/esp8266/other/upnp/upnp.h

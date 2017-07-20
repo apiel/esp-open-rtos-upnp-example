@@ -51,6 +51,7 @@
 
 #include "lwipopts.h"
 #include "upnp.h"
+#include "httpd.h"
 
 /** User friendly FreeRTOS delay macro */
 #define delay_ms(ms) vTaskDelay(ms / portTICK_PERIOD_MS)
@@ -132,5 +133,6 @@ void user_init(void)
     ota_tftp_init_server(TFTP_PORT);
     xTaskCreate(&wifi_task, "wifi_task",  256, NULL, 2, NULL);
     delay_ms(250);
+    xTaskCreate(&httpd_task, "http_server", 1024, NULL, 4, NULL);
     xTaskCreate(&mcast_task, "mcast_task", 1024, NULL, 4, NULL);
 }
